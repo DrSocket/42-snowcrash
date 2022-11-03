@@ -177,7 +177,7 @@ some search about preg_replace in php showed there are many vulnerabilities in p
 	./level06 /tmp/getflag
 
 outputs:
-> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
+> PHP Notice:  Undefined variable: Check flag.Here is your token : `wiok45aaoguiboiki2tuin6ub`
  in /home/user/level06/level06.php(4) : regexp code on line 1
 
 ## level07
